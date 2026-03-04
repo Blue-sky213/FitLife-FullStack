@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h2>✏️ แก้ไขข้อมูลคลาส: <%= classItem.className %></h2>
+    <hr>
+    
+    <form action="/classes/<%= classItem.id %>?_method=PUT" method="POST" class="mt-3">
+        
+        <div class="mb-3">
+            <label for="className" class="form-label">ชื่อคลาส (Class Name) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="className" name="className" value="<%= classItem.className %>" maxlength="200" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="scheduleTime" class="form-label">เวลาเรียน (Schedule Time) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="scheduleTime" name="scheduleTime" value="<%= classItem.scheduleTime %>" maxlength="100" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="capacity" class="form-label">จำนวนที่รับได้ (Capacity) <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="capacity" name="capacity" value="<%= classItem.capacity %>" min="1" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="trainerId" class="form-label">เทรนเนอร์ผู้สอน (Trainer) <span class="text-danger">*</span></label>
+            <select class="form-select" id="trainerId" name="trainerId" required>
+                <% trainers.forEach(t => { %>
+                    <option value="<%= t.id %>" <%= classItem.trainerId === t.id ? 'selected' : '' %>>
+                        <%= t.firstName %> <%= t.lastName %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">รายละเอียดคลาส (Description)</label>
+            <textarea class="form-control" id="description" name="description" rows="3"><%= classItem.description %></textarea>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">💾 อัปเดตข้อมูล</button>
+            <a href="/classes" class="btn btn-secondary">❌ ยกเลิก</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

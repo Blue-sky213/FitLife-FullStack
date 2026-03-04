@@ -12,6 +12,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/classes', require('./routes/classRoutes'));//กูเติมส่วนตรงนี้นะ  =W=
+
 app.use(session({
   secret: 'fitness-secret',
   resave: false,

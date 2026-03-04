@@ -1,0 +1,50 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <h2>➕ เพิ่มคลาสออกกำลังกายใหม่</h2>
+    <hr>
+    
+    <form action="/classes" method="POST" class="mt-3">
+        
+        <div class="mb-3">
+            <label for="className" class="form-label">ชื่อคลาส (Class Name) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="className" name="className" maxlength="200" required placeholder="เช่น Yoga Basics, HIIT Cardio">
+        </div>
+
+        <div class="mb-3">
+            <label for="scheduleTime" class="form-label">เวลาเรียน (Schedule Time) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="scheduleTime" name="scheduleTime" maxlength="100" required placeholder="เช่น จันทร์ 18:00 - 19:00">
+        </div>
+
+        <div class="mb-3">
+            <label for="capacity" class="form-label">จำนวนที่รับได้ (Capacity) <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="capacity" name="capacity" min="1" max="100" required value="20">
+        </div>
+
+        <div class="mb-3">
+            <label for="trainerId" class="form-label">เทรนเนอร์ผู้สอน (Trainer) <span class="text-danger">*</span></label>
+            <select class="form-select" id="trainerId" name="trainerId" required>
+                <option value="" disabled selected>-- โปรดเลือกเทรนเนอร์ --</option>
+                <% if (trainers && trainers.length > 0) { %>
+                    <% trainers.forEach(t => { %>
+                        <option value="<%= t.id %>"><%= t.firstName %> <%= t.lastName %></option>
+                    <% }) %>
+                <% } else { %>
+                    <option value="" disabled>ไม่พบรายชื่อเทรนเนอร์ในระบบ</option>
+                <% } %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">รายละเอียดคลาส (Description)</label>
+            <textarea class="form-control" id="description" name="description" rows="3" placeholder="ระบุรายละเอียดเพิ่มเติม (ถ้ามี)"></textarea>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success">💾 บันทึกข้อมูล</button>
+            <a href="/classes" class="btn btn-secondary">❌ ยกเลิก</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

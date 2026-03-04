@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">ℹ️ รายละเอียดคลาส: <%= classItem.className %></h3>
+            <span class="badge bg-light text-dark">รหัสคลาส: <%= classItem.id %></span>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">ชื่อคลาส (Class Name):</div>
+                <div class="col-md-9"><%= classItem.className %></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">เวลาเรียน (Schedule Time):</div>
+                <div class="col-md-9"><%= classItem.scheduleTime %></div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">จำนวนที่รับได้ (Capacity):</div>
+                <div class="col-md-9"><%= classItem.capacity %> คน</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">เทรนเนอร์ผู้สอน (Trainer):</div>
+                <div class="col-md-9">
+                    <% if (classItem.trainer) { %>
+                        👤 <%= classItem.trainer.firstName %> <%= classItem.trainer.lastName %>
+                    <% } else { %>
+                        <span class="text-muted">ยังไม่มีการระบุเทรนเนอร์</span>
+                    <% } %>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-3 fw-bold">รายละเอียด (Description):</div>
+                <div class="col-md-9">
+                    <%= classItem.description ? classItem.description : '-' %>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white">
+            <a href="/classes" class="btn btn-secondary">🔙 กลับหน้ารายการ</a>
+            <a href="/classes/<%= classItem.id %>/edit" class="btn btn-warning">✏️ แก้ไขข้อมูล</a>
+            
+            <form action="/classes/<%= classItem.id %>?_method=DELETE" method="POST" style="display:inline;" onsubmit
